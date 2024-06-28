@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './InputForm.module.css';
 
 type InputFormProps = {
   isbn: string;
@@ -8,9 +9,9 @@ type InputFormProps = {
 const InputForm: React.FC<InputFormProps> = ({ isbn, setIsbn }) => {
   return (
     <>
-      <label className="label">ISBNコード</label>
+      <label className={style.label}>ISBNコード</label>
       <input
-        className="input"
+        className={style.input}
         placeholder="入力してください"
         value={isbn}
         onChange={(e) => setIsbn(e.target.value)}

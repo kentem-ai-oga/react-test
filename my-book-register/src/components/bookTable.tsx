@@ -1,5 +1,6 @@
 import { BookItemModel } from '../models';
 import BookRow from './bookRow';
+import style from './bookTable.module.css';
 
 interface Props {
   //書籍情報一覧のstate
@@ -14,7 +15,7 @@ const BookTable = ({
   onClickLendingSwitch,
 }: Props) => {
   return (
-    <table border={1}>
+    <table border={1} className={style.table}>
       <thead>
         <tr>
           <td>書籍名</td>

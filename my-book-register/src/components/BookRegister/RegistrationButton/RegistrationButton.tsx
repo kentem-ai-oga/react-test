@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './RegistrationButton.module.css';
 
 type RegistrationButtonProps = {
   handleClickButton: () => void;
@@ -9,7 +10,7 @@ const RegistrationButton: React.FC<RegistrationButtonProps> = ({
 }) => {
   return (
     <>
-      <button className="button" onClick={handleClickButton}>
+      <button className={style.button} onClick={handleClickButton}>
         書籍登録
       </button>
     </>

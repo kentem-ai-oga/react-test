@@ -1,4 +1,5 @@
 import { BookItemModel } from '../models';
+import style from './bookRow.module.css';
 
 interface Props {
   bookItem: BookItemModel;
@@ -12,18 +13,21 @@ const BookRow = ({ bookItem, onClickDelete, onClickLendingSwitch }: Props) => {
       <td>{bookItem.name}</td>
       <td>{bookItem.isOnLoan ? '貸出中' : '利用可能'}</td>
       <td>
-        <button className="button" onClick={() => onClickDelete(bookItem.id)}>
+        <button
+          className={style.button}
+          onClick={() => onClickDelete(bookItem.id)}
+        >
           削除
         </button>
         <button
-          className="button"
+          className={style.button}
           onClick={() => onClickLendingSwitch(bookItem.id)}
           disabled={bookItem.isOnLoan}
         >
           貸出
         </button>
         <button
-          className="button"
+          className={style.button}
           onClick={() => onClickLendingSwitch(bookItem.id)}
           disabled={!bookItem.isOnLoan}
         >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import style from './App.module.css';
 import InputForm from './components/BookRegister/InputForm/InputForm.tsx';
 import RegistrationButton from './components/BookRegister/RegistrationButton/RegistrationButton.tsx';
 import FilterableBookTable from './components/filterableBookTable';
@@ -39,6 +39,7 @@ const App: React.FC = () => {
     setBooks(books.filter((book) => book.id !== id));
   };
 
+  // idが一致する本の貸出 or 返却についてbooksのisOnLoanプロパティを切り替え
   const switchLendingBooks = (id: string): void => {
     setBooks(
       books.map((book) =>
@@ -48,7 +49,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
+    <div className={style.App}>
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
       <InputForm isbn={isbn} setIsbn={setIsbn} />
       <RegistrationButton handleClickButton={handleClickButton} />
