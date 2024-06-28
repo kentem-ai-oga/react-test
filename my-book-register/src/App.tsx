@@ -51,13 +51,12 @@ const App: React.FC = () => {
 
   // idが一致する本をbooksから削除
   const deleteBooks = (id: string): void => {
-    setBooks(books.filter((book) => book.id !== id));
+    setBooks((prev) => prev.filter((book) => book.id !== id));
   };
 
-  // idが一致する本の貸出 or 返却についてbooksのisOnLoanプロパティを切り替え
   const switchLendingBooks = (id: string): void => {
-    setBooks(
-      books.map((book) =>
+    setBooks((prev) =>
+      prev.map((book) =>
         book.id === id ? { ...book, isOnLoan: !book.isOnLoan } : book,
       ),
     );

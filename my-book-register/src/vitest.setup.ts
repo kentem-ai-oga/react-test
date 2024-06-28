@@ -1,6 +1,6 @@
-import "@testing-library/jest-dom";
-import { afterAll, afterEach, beforeAll } from "vitest";
-import { server } from "./src/mocks/node.ts";
+import '@testing-library/jest-dom';
+import { afterAll, afterEach, beforeAll } from 'vitest';
+import { server } from './mocks/node';
 
 // テストの前にサーバーを起動
 beforeAll(() => server.listen());

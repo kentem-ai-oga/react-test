@@ -82,13 +82,13 @@ test.describe('App Component', () => {
     await lendButton.click();
 
     // 貸出状態になったことを確認
-    await expect(page.getByRole('button', { name: '返却' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '返却' })).toBeEnabled();
 
     // 返却ボタンをクリック
     const returnButton = page.getByRole('button', { name: '返却' });
     await returnButton.click();
 
     // 返却状態になったことを確認
-    await expect(page.getByRole('button', { name: '貸出' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '貸出' })).toBeEnabled();
   });
 });
