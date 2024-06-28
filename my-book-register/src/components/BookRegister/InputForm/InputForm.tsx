@@ -15,6 +15,7 @@ const InputForm: React.FC<InputFormProps> = ({ isbn, setIsbn }) => {
         placeholder="入力してください"
         value={isbn}
         onChange={(e) => setIsbn(e.target.value)}
+        aria-label="inputForm"
       ></input>
     </>
   );

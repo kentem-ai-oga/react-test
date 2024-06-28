@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useState } from 'react';
-import { BookItemModel } from '../models';
-import BookTable from './bookTable';
+import { BookItemModel } from '../../../models';
+import BookTable from '../BookTable/bookTable';
 import style from './filterableBookTable.module.css';
 
 interface Props {

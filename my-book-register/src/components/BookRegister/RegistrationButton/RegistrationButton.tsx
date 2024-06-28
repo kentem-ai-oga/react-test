@@ -1,10 +1,6 @@
 import React from 'react';
 import style from './RegistrationButton.module.css';
 
-type RegistrationButtonProps = {
-  handleClickButton: () => void;
-};
-
 const RegistrationButton: React.FC<RegistrationButtonProps> = ({
   handleClickButton,
 }) => {

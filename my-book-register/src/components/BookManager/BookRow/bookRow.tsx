@@ -1,4 +1,4 @@
-import { BookItemModel } from '../models';
+import { BookItemModel } from '../../../models';
 import style from './bookRow.module.css';
 
 interface Props {
