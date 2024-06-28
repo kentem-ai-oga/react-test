@@ -1,0 +1,12 @@
+.table {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.thead {
+  background-color: #b6b2b2;
+  color: white;
+}

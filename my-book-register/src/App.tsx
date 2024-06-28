@@ -1,13 +1,20 @@
-import { useState } from 'react';
-import './App.css';
-import FilterableBookTable from './components/filterableBookTable';
+import React, { useState } from 'react';
+import style from './App.module.css';
+import FilterableBookTable from './components/BookManager/FilterableBookTable/filterableBookTable.tsx';
+import InputForm from './components/BookRegister/InputForm/InputForm.tsx';
+import RegistrationButton from './components/BookRegister/RegistrationButton/RegistrationButton.tsx';
 import { BookItemModel } from './models';
 
-function App() {
+const App: React.FC = () => {
   const [isbn, setIsbn] = useState('');
   const [books, setBooks] = useState<BookItemModel[]>([]);
 
   const handleClickButton = (): void => {
+    // ISBNコードが入力されていないときはアラート
+    if (isbn === '') {
+      alert('ISBNコードを入力してください。');
+      return;
+    }
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
       .then((response) => response.json())
       .then((data) => {
@@ -15,11 +22,21 @@ function App() {
           alert('登録されていない ISBN コードです。');
           return;
         }
+        // 登録済みの場合は登録済みであることを教えて登録しない
+        if (isDuplicate(data.items[0].volumeInfo.title)) {
+          alert('登録済みの書籍です。');
+          return;
+        }
         onPostCompleted({
           name: data.items[0].volumeInfo.title,
           isOnLoan: false,
         });
       });
+  };
+
+  // 登録済みの書籍かどうかを判定
+  const isDuplicate = (title: string): boolean => {
+    return books.some((book) => book.name === title);
   };
 
   const onPostCompleted = (postedItem: Omit<BookItemModel, 'id'>): void => {
@@ -30,37 +47,45 @@ function App() {
         ...postedItem,
       },
     ]);
-  }
+  };
+
+  // idが一致する本をbooksから削除
+  const deleteBooks = (id: string): void => {
+    setBooks((prev) => prev.filter((book) => book.id !== id));
+  };
+
+  const switchLendingBooks = (id: string): void => {
+    setBooks((prev) =>
+      prev.map((book) =>
+        book.id === id ? { ...book, isOnLoan: !book.isOnLoan } : book,
+      ),
+    );
+  };
 
   return (
-    <div className="App">
+    <div className={style.App}>
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
-      <div className="book-register">
-        <div className="label-input">
-          <label className="label">
-            ISBNコード
-          </label>
-          <input className="input" placeholder="入力してください" value={isbn} onChange={(e) => setIsbn(e.target.value)}></input>
-        </div>
-        <button className="button" onClick={handleClickButton}>
-          書籍登録
-        </button>
-      </div>
+      <InputForm isbn={isbn} setIsbn={setIsbn} />
+      <RegistrationButton handleClickButton={handleClickButton} />
       {/* 第1問：コンポーネントに分割 ↑ ↑ ↑ ↑ ↑ ↑ */}
       <hr />
       <FilterableBookTable
         books={books}
         onClickDelete={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
+          {
+            /* 第2問：貸出 or 返却 or 削除の処理を追加 */
+            deleteBooks(id);
           }
-        }
+        }}
         onClickLendingSwitch={(id) => {
-            {/* 第2問：貸出 or 返却 or 削除の処理を追加 */}            
+          {
+            /* 第2問：貸出 or 返却 or 削除の処理を追加 */
+            switchLendingBooks(id);
           }
-        }
+        }}
       />
     </div>
   );
-}
+};
 
 export default App;
