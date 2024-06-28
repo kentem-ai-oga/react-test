@@ -21,10 +21,13 @@ const FilterableBookTable = ({
   return (
     <div className="filterable-book-table">
       <div className="label-input">
-        <label className="label">
-          filter
-        </label>
-        <input className="input" placeholder="入力してください" value={filterText} onChange={handleChangeFilterText}></input>
+        <label className="label">filter</label>
+        <input
+          className="input"
+          placeholder="入力してください"
+          value={filterText}
+          onChange={handleChangeFilterText}
+        ></input>
       </div>
       <BookTable
         bookItems={books.filter(

@@ -34,6 +34,19 @@ const App: React.FC = () => {
     ]);
   };
 
+  // idが一致する本をbooksから削除
+  const deleteBooks = (id: string): void => {
+    setBooks(books.filter((book) => book.id !== id));
+  };
+
+  const switchLendingBooks = (id: string): void => {
+    setBooks(
+      books.map((book) =>
+        book.id === id ? { ...book, isOnLoan: !book.isOnLoan } : book,
+      ),
+    );
+  };
+
   return (
     <div className="App">
       {/* 第1問：コンポーネントに分割 ↓ ↓ ↓ ↓ ↓ */}
@@ -46,11 +59,13 @@ const App: React.FC = () => {
         onClickDelete={(id) => {
           {
             /* 第2問：貸出 or 返却 or 削除の処理を追加 */
+            deleteBooks(id);
           }
         }}
         onClickLendingSwitch={(id) => {
           {
             /* 第2問：貸出 or 返却 or 削除の処理を追加 */
+            switchLendingBooks(id);
           }
         }}
       />
